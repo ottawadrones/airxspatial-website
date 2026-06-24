@@ -47,9 +47,9 @@ export interface ReportSummary {
   total_keywords: number;
   /** Keyword count split by tier. Keys are string "1"–"4". */
   by_tier: Record<'1' | '2' | '3' | '4', number>;
-  /** Keywords where tnms.ai appears in positions 1–10. */
+  /** Keywords where our domain appears in positions 1–10. */
   ranked_top_10: number;
-  /** Keywords where SERP was fetched but tnms.ai was absent. */
+  /** Keywords where SERP was fetched but our domain was absent. */
   unranked: number;
   /** Keywords where SERP data was not fetched (no API credentials). */
   no_data: number;
@@ -105,7 +105,7 @@ export interface SerpData {
 }
 
 export interface OurRanking {
-  /** 1–10, or null if tnms.ai did not appear in the top-10 results. */
+  /** 1–10, or null if our domain did not appear in the top-10 results. */
   position: number | null;
   url: string | null;
 }

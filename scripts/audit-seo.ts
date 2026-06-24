@@ -124,7 +124,7 @@ function analyzeContent(kw: KeywordConfig): ContentAnalysis {
 
 // ── Serper.dev API ────────────────────────────────────────────────────────────
 
-const OUR_DOMAIN = new URL(SITE_URL).hostname; // 'tnms.ai'
+const OUR_DOMAIN = new URL(SITE_URL).hostname; // e.g. 'your-domain.com'
 
 interface SerperOrganic {
   title: string;
