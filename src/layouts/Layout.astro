@@ -43,6 +43,9 @@ const ogImage      = image ?? `${siteUrl}/og-default.png`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+    <!-- Enable reveal motion before first paint so content never flashes. -->
+    <script is:inline>document.documentElement.classList.add('axs-anim');</script>
+
     <!-- Primary -->
     <title>{siteTitle}</title>
     <meta name="description" content={description} />
@@ -86,5 +89,29 @@ const ogImage      = image ?? `${siteUrl}/og-default.png`;
     </main>
     <Footer />
     <ConsentBanner />
+
+    <script>
+      // Reveal [data-reveal] elements as they enter view. The hero is in view at
+      // load, so its staggered children play as one rehearsed entrance.
+      const els = Array.from(document.querySelectorAll('[data-reveal]'));
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                obs.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

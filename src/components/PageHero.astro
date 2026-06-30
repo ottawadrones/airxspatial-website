@@ -58,7 +58,8 @@ const kickerTail = kickerRest.join(' · ');
 >
   {bgImage && (
     <div class="page-hero__media" aria-hidden={bgAlt ? undefined : 'true'}>
-      <img class="page-hero__img" src={bgImage} alt={bgAlt} fetchpriority="high" decoding="async" />
+      <img class="page-hero__img media-grade" src={bgImage} alt={bgAlt} fetchpriority="high" decoding="async" />
+      <span class="media-tint"></span>
       <div class="page-hero__scrim"></div>
     </div>
   )}
@@ -81,20 +82,20 @@ const kickerTail = kickerRest.join(' · ');
     )}
 
     <div class={size === 'hero' ? 'mt-8 max-w-4xl' : 'mt-6 max-w-3xl'}>
-      {eyebrow && <p class="site-eyebrow site-eyebrow--paper">{eyebrow}</p>}
+      {eyebrow && <p class="site-eyebrow site-eyebrow--paper" data-reveal style="--reveal-delay: 60ms">{eyebrow}</p>}
 
-      <h1 class={headlineClass}>
+      <h1 class={headlineClass} data-reveal="soft" style="--reveal-delay: 150ms">
         {before}{accent && <span class={accentClass}>{accent}{trailingPunc}</span>}{after}
       </h1>
 
       {subheadline && (
-        <p class="mt-7 max-w-2xl text-lg md:text-xl leading-relaxed text-ink-200">
+        <p class="mt-7 max-w-2xl text-lg md:text-xl leading-relaxed text-ink-200" data-reveal style="--reveal-delay: 300ms">
           {subheadline}
         </p>
       )}
 
       {(cta || ctaSecondary) && (
-        <div class="mt-10 flex flex-wrap items-center gap-4">
+        <div class="mt-10 flex flex-wrap items-center gap-4" data-reveal style="--reveal-delay: 430ms">
           {cta && (
             <a
               href={cta.href}

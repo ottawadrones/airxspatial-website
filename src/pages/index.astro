@@ -13,6 +13,7 @@ import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import HeroField from '../components/HeroField.astro';
 import ArcEdge from '../components/ArcEdge.astro';
+import Photo from '../components/Photo.astro';
 import CtaStrip from '../components/CtaStrip.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -95,22 +96,16 @@ const proofPoints = [
     lede="From a single boundary survey to a campus-scale digital twin, AirXSpatial fields the discipline the work demands — delivered by licensed firms and certified pilots, documented to the standards your project answers to."
   >
     <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-start">
-      <figure class="overflow-hidden rounded-[2rem] border border-ink-200">
-        <img
-          src={IMG_AERIAL}
-          alt="Aerial survey of a construction site threaded between city blocks."
-          class="aspect-[4/5] w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <figcaption class="bg-white px-6 py-4 font-mono text-xs uppercase tracking-[0.14em] text-ink-500">
-          Aerial capture · live construction site
-        </figcaption>
-      </figure>
+      <Photo
+        src={IMG_AERIAL}
+        alt="Aerial survey of a construction site threaded between city blocks."
+        ratio="4 / 5"
+        caption="Aerial capture · live construction site"
+      />
 
       <ul class="border-t border-ink-200">
-        {capabilities.map((c) => (
-          <li class="group border-b border-ink-200 py-6">
+        {capabilities.map((c, i) => (
+          <li class="group border-b border-ink-200 py-6" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
             <div class="flex items-baseline gap-4">
               <span class="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-sky-500" aria-hidden="true"></span>
               <div>
@@ -134,7 +129,7 @@ const proofPoints = [
     lede="Every engagement resolves to something measurable — a registered point cloud, an orthomosaic, a digital twin. The deliverable is the proof."
   >
     <div class="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
-      <div class="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-ink-300 bg-ink-950">
+      <div class="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-ink-300 bg-ink-950" data-reveal>
         <HeroField />
         <span class="absolute left-5 top-5 rounded-md bg-ink-950/55 px-3 py-1.5 font-mono text-[11px] tracking-[0.08em] text-ink-200 backdrop-blur" aria-hidden="true">
           LiDAR · point cloud · 0.4&nbsp;px GSD
@@ -165,7 +160,8 @@ const proofPoints = [
   <!-- For firms & pilots — the mid-page dark reveal, photo-backed -->
   <section id="partners" data-variant="inverse" class="section relative isolate overflow-hidden" data-section="partners">
     <div class="partners__media" aria-hidden="true">
-      <img src={IMG_NIGHT} alt="" class="partners__img" loading="lazy" decoding="async" />
+      <img src={IMG_NIGHT} alt="" class="partners__img media-grade" loading="lazy" decoding="async" />
+      <span class="media-tint"></span>
       <div class="partners__scrim"></div>
     </div>
 
@@ -208,8 +204,8 @@ const proofPoints = [
   >
     <ol class="relative mt-16 grid gap-12 sm:grid-cols-3 sm:gap-x-10">
       <span class="pointer-events-none absolute inset-x-0 top-7 hidden h-px bg-ink-200 sm:block" aria-hidden="true"></span>
-      {steps.map((step) => (
-        <li class="relative">
+      {steps.map((step, i) => (
+        <li class="relative" data-reveal style={`--reveal-delay: ${i * 90}ms`}>
           <span class="relative z-10 inline-flex bg-ink-50 pr-5 font-display text-6xl font-extrabold leading-none tracking-tight text-ink-900">{step.num}</span>
           <span class="mt-6 block h-px w-12 bg-sky-500" aria-hidden="true"></span>
           <h3 class="mt-5 text-lg font-bold tracking-tight text-ink-900">{step.title}</h3>
@@ -222,15 +218,12 @@ const proofPoints = [
   <!-- Proof — a credibility artifact + a real captured site -->
   <Section variant="paper" inner="wide">
     <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-      <figure class="order-last overflow-hidden rounded-[2rem] border border-ink-200 lg:order-first">
-        <img
-          src={IMG_AERIAL}
-          alt="Drone capture of a construction site, foundations and steel laid out below."
-          class="aspect-[4/3] w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+      <Photo
+        src={IMG_AERIAL}
+        alt="Drone capture of a construction site, foundations and steel laid out below."
+        ratio="4 / 3"
+        class="order-last lg:order-first"
+      />
       <div>
         <h2 class="site-headline site-headline--display">
           Credibility is the <span class="site-accent--sky">product.</span>
