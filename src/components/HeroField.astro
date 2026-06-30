@@ -1,0 +1,172 @@
+---
+/**
+ * HeroField — the product made visible.
+ *
+ * A generated LiDAR-style point cloud surveying a landscape: a grid of points
+ * displaced into terrain, projected in perspective, colored landscape-green at
+ * the ground rising to sky-blue, drifting forward as if mid-survey. This is the
+ * hero's one big "ooh" — and it depicts exactly what AirXSpatial captures.
+ *
+ * Zero external assets. Respects prefers-reduced-motion (renders a single still
+ * frame). Pauses when offscreen. Decorative, so aria-hidden and pointer-inert.
+ */
+---
+
+<div class="hero-field" aria-hidden="true">
+  <canvas class="hero-field__canvas" data-hero-field></canvas>
+  <div class="hero-field__scrim"></div>
+</div>
+
+<style>
+  .hero-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-field__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* Keep headline contrast over the cloud: darken left/bottom where text sits. */
+  .hero-field__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--color-ink-950) 0%, oklch(0.16 0.013 250 / 0.45) 38%, transparent 72%),
+      linear-gradient(0deg, var(--color-ink-950) 0%, transparent 34%);
+  }
+</style>
+
+<script>
+  type Pt = { x: number; z: number };
+
+  function initHeroField(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Terrain grid in world space. Camera looks down the +z axis.
+    const COLS = 64;   // across
+    const ROWS = 90;   // into the distance
+    const SPACING = 1; // world units between points
+    const FOCAL = 1.9;
+
+    // Brand colors sampled from the palette (ground -> sky by height).
+    const LAND = [0.34, 0.62, 0.36]; // approx land-500 in sRGB
+    const SKY = [0.36, 0.66, 0.95];  // approx sky-300 in sRGB
+
+    let w = 0, h = 0, dpr = 1;
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = Math.max(1, Math.floor(r.width));
+      h = Math.max(1, Math.floor(r.height));
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function terrain(x: number, z: number, t: number): number {
+      // Layered, slowly evolving height field — surveyed landscape with ridges.
+      return (
+        Math.sin(x * 0.18 + z * 0.10 + t * 0.18) * 1.8 +
+        Math.cos(z * 0.22 - x * 0.06 + t * 0.12) * 1.25 +
+        Math.sin(x * 0.06 - z * 0.05) * 0.9
+      );
+    }
+
+    function draw(t: number, drift: number) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
+
+      const cx = w * 0.5;
+      const horizon = h * 0.43;        // vanishing height on screen
+      const camY = 5.6;                // camera height above the field
+      const amp = 1.25;
+
+      for (let r = ROWS - 1; r >= 0; r--) {
+        // depth from camera for this row (far rows first for correct overlap)
+        const z = r * SPACING + 0.6 + drift;
+        const perspective = FOCAL / z;
+        // fog: far points fade into the dusk; near points fade as they pass under
+        const fog = Math.min(1, (ROWS - r) / ROWS * 1.5);
+        const nearFade = Math.min(1, z / 4);
+
+        for (let c = 0; c < COLS; c++) {
+          const x = (c - COLS / 2) * SPACING;
+          const y = terrain(x, z, t) * amp;
+
+          const sx = cx + x * perspective * (w * 0.5);
+          const sy = horizon + (camY - y) * perspective * (h * 0.5);
+
+          if (sx < -20 || sx > w + 20 || sy < -20 || sy > h + 20) continue;
+
+          // height 0..1 -> land to sky
+          const hn = Math.max(0, Math.min(1, (y + 2.5) / 5));
+          const rr = (LAND[0] + (SKY[0] - LAND[0]) * hn) * 255;
+          const gg = (LAND[1] + (SKY[1] - LAND[1]) * hn) * 255;
+          const bb = (LAND[2] + (SKY[2] - LAND[2]) * hn) * 255;
+
+          const alpha = 0.08 + fog * nearFade * (0.42 + hn * 0.55);
+          const size = Math.max(0.7, perspective * (w * 0.5) * 0.06);
+
+          ctx.fillStyle = `rgba(${rr | 0}, ${gg | 0}, ${bb | 0}, ${alpha.toFixed(3)})`;
+          ctx.fillRect(sx, sy, size, size);
+        }
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    if (reduce) {
+      draw(2.0, 0);
+      return;
+    }
+
+    let raf = 0;
+    let running = true;
+    let start = 0;
+    function frame(now: number) {
+      if (!start) start = now;
+      const t = (now - start) / 1000;
+      const drift = (t * 1.1) % SPACING; // continuous forward survey
+      draw(t, drift);
+      if (running) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+
+    // Pause when the hero scrolls out of view.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting && !running) {
+          running = true;
+          start = 0;
+          raf = requestAnimationFrame(frame);
+        } else if (!e.isIntersecting && running) {
+          running = false;
+          cancelAnimationFrame(raf);
+        }
+      }
+    }, { threshold: 0 });
+    io.observe(canvas);
+  }
+
+  function boot() {
+    document.querySelectorAll<HTMLCanvasElement>('canvas[data-hero-field]')
+      .forEach((c) => initHeroField(c));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+</script>

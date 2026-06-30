@@ -1,14 +1,10 @@
 ---
 /**
- * index.astro — Hello World homepage.
+ * index.astro — AirXSpatial homepage.
  *
- * This page demonstrates the core design system:
- *   • PageHero with glow halos and accent word
- *   • Section component with kicker + heading
- *   • FeatureCard grid
- *   • CtaStrip
- *
- * Replace everything below with your own content.
+ * The marketplace for engineering & survey. Phase goal: credibility. A
+ * monumental dark hero, a gallery-light body, one mid-page dark reveal for the
+ * supply side, and a dark closing CTA. See PRODUCT.md / DESIGN.md.
  */
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -17,105 +13,167 @@ import FeatureCard from '../components/FeatureCard.astro';
 import CtaStrip from '../components/CtaStrip.astro';
 
 const base = import.meta.env.BASE_URL;
+
+const disciplines = ['Surveying', 'Inspection', 'LiDAR', 'Photogrammetry'];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Publish the scope',
+    body: 'A developer, GC, or asset owner posts the site and the deliverable — boundary survey, façade inspection, a progress capture. Plainly, in your terms.',
+  },
+  {
+    num: '02',
+    title: 'We match the field',
+    body: 'AirXSpatial routes the work to credentialed engineering firms and certified pilots near the site, in the right discipline — ready to bid.',
+  },
+  {
+    num: '03',
+    title: 'Receive the deliverable',
+    body: 'Survey-grade data, documented to standard and delivered on a timeline you can build against. Traceable from field to file.',
+  },
+];
+
+const partnerBenefits = [
+  {
+    title: 'Qualified demand, pre-scoped',
+    body: 'Only projects that match your discipline, your equipment, and your coverage area. No tire-kickers.',
+  },
+  {
+    title: 'No sales & marketing overhead',
+    body: 'AirXSpatial is your go-to-market layer. You stay in the field; we bring the work to you.',
+  },
+  {
+    title: 'Credentialing that compounds',
+    body: 'Every delivery builds a verifiable track record — the kind that wins the next, larger project.',
+  },
+  {
+    title: 'Rewarded for precision',
+    body: 'The marketplace favours the firms and pilots who measure twice and deliver to standard.',
+  },
+];
 ---
 
 <Layout
-  title="Hello World"
-  description="A ship-a-website starter: Astro 6, Tailwind CSS v4, BEM enforcement, SEO lint gate, and a TNMS Ship-ready pipeline."
+  title="The marketplace for engineering & survey"
+  description="AirXSpatial connects developers and asset owners with the engineering firms and certified pilots who deliver precise surveying, inspection, LiDAR, and photogrammetry — wherever the work is."
 >
   <PageHero
     size="hero"
-    headline="Ship a website. Ship it right."
-    accentWord="right."
-    accentColor="multi"
-    subheadline="A white-label Astro 6 + Tailwind v4 starter — with BEM enforcement, a three-tier SEO lint gate, and a TNMS Ship pipeline out of the box."
-    cta={{ label: 'Read the docs', href: `${base}about` }}
-    ctaSecondary={{ label: 'View on GitHub', href: 'https://github.com/your-org/ship-a-website' }}
+    eyebrow="The marketplace for engineering & survey"
+    headline="Ground truth for the world’s most ambitious sites."
+    accentWord="Ground truth"
+    accentColor="sky"
+    subheadline="AirXSpatial connects developers and asset owners with the engineering firms and certified pilots who deliver precise surveying, inspection, LiDAR, and photogrammetry — wherever the work is."
+    cta={{ label: 'See how it works', href: `${base}#how-it-works` }}
+    ctaSecondary={{ label: 'For firms & pilots', href: `${base}#partners` }}
   />
 
+  <!-- Discipline band — quiet proof, hairline-precise -->
+  <Section variant="paper">
+    <p class="site-eyebrow">Built for work that can’t be wrong</p>
+    <div class="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-ink-200 bg-ink-200 sm:grid-cols-4">
+      {disciplines.map((d) => (
+        <div class="bg-white px-6 py-7">
+          <p class="text-lg font-semibold tracking-tight text-ink-900">{d}</p>
+          <p class="mt-1 font-mono text-xs uppercase tracking-widest text-ink-500">Survey-grade</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Platform — what we do -->
   <Section
-    variant="paper"
-    kicker={{ num: '01', label: 'What you get' }}
-    heading="Everything wired up before you type a line."
-    accentWord="wired up"
-    accentColor="cyan"
-    lede="This starter is production-grade from day one. Style enforcement, SEO gates, self-hosted fonts, and a Ship-ready pipeline — so you spend time on content, not config."
+    id="platform"
+    variant="sunken"
+    kicker={{ num: '01', label: 'What we do' }}
+    heading="One marketplace. Every spatial deliverable."
+    accentWord="Every spatial deliverable."
+    accentColor="sky"
+    lede="From a single boundary survey to a campus-scale digital twin, AirXSpatial fields the discipline the work demands — delivered by licensed firms and certified pilots, documented to the standards your project answers to."
   >
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <FeatureCard
-        icon="⚡"
-        accent="cyan"
-        heading="Astro 6 + Tailwind v4"
-        body="Static output, zero client JS by default. Tailwind v4 CSS-first config with all design tokens living in a single global.css."
+        accent="sky"
+        heading="Surveying & geomatics"
+        body="Boundary, topographic, and as-built surveys delivered by licensed firms to the tolerance your project demands."
       />
       <FeatureCard
-        icon="🎨"
-        accent="purple"
-        heading="Design token system"
-        body="Ink (neutral), signal (accent), and neon halo palette — defined as Tailwind @theme variables and consumed by every component."
+        accent="land"
+        heading="Inspection & compliance"
+        body="Structural, façade, and infrastructure inspections documented to the standards regulators and insurers expect."
       />
       <FeatureCard
-        icon="📐"
-        accent="magenta"
-        heading="BEM enforcement"
-        body="Custom ESLint + Stylelint plugins reject non-BEM class names and inline styles at lint time. Architecture is structural, not advisory."
+        accent="sky"
+        heading="LiDAR & point clouds"
+        body="Aerial and terrestrial LiDAR captured by certified pilots and registered into survey-grade point clouds."
       />
       <FeatureCard
-        icon="🔍"
-        accent="green"
-        heading="Three-tier SEO gate"
-        body="Keyword registry → offline lint gate → SERP audit. Tier 1 keyword coverage blocks commits. Full audit available when you add a Serper API key."
+        accent="land"
+        heading="Photogrammetry & 3D"
+        body="High-resolution imagery turned into measurable orthomosaics, meshes, and digital twins of the real site."
       />
       <FeatureCard
-        icon="🚀"
-        accent="cyan"
-        heading="Ship pipeline ready"
-        body="AGENTS.md and pipeline configuration included. Hook it up to TNMS Ship and update your site through a governed agentic pipeline."
+        accent="sky"
+        heading="Construction progress"
+        body="Repeat captures that track a build against plan — evidence owners, lenders, and project controls can trust."
       />
       <FeatureCard
-        icon="🔤"
-        accent="purple"
-        heading="Self-hosted fonts"
-        body="Inter Variable, Inter Tight Variable, and JetBrains Mono loaded locally via font-display: optional. No Google Fonts, no external requests."
+        accent="land"
+        heading="A vetted network"
+        body="Every firm and pilot is credentialed, insured, and matched to the work they do best. Precision is the price of entry."
       />
     </div>
   </Section>
 
+  <!-- How it works -->
   <Section
-    variant="sunken"
-    kicker={{ num: '02', label: 'Get started' }}
-    heading="Clone, configure, deploy."
-    accentWord="deploy."
-    accentColor="purple"
-    inner="prose"
+    id="how-it-works"
+    variant="paper"
+    kicker={{ num: '02', label: 'How it works' }}
+    heading="Three steps from scope to ground truth."
+    accentWord="ground truth."
+    accentColor="land"
+    lede="AirXSpatial is the layer between the work and the people who can do it — the sales and marketing firm that makes bidding and winning effortless."
   >
-    <div class="mt-8 prose prose-zinc max-w-none">
-      <ol>
-        <li>
-          <strong>Clone the repo</strong>
-          <pre><code>git clone https://github.com/your-org/ship-a-website my-site
-cd my-site && npm install</code></pre>
+    <ol class="mt-12 grid list-none gap-px overflow-hidden rounded-md border border-ink-200 bg-ink-200 p-0 sm:grid-cols-3">
+      {steps.map((step) => (
+        <li class="flex flex-col bg-white p-8">
+          <span class="font-mono text-sm font-semibold tracking-widest text-sky-600">{step.num}</span>
+          <h3 class="mt-5 text-lg font-bold tracking-tight text-ink-900">{step.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">{step.body}</p>
         </li>
-        <li>
-          <strong>Configure your brand</strong> — edit <code>scripts/site.config.ts</code> and replace
-          the placeholder values in <code>src/layouts/Layout.astro</code>.
-        </li>
-        <li>
-          <strong>Run locally</strong>
-          <pre><code>npm run dev</code></pre>
-        </li>
-        <li>
-          <strong>Connect TNMS Ship</strong> — see <a href={`${base}about`}>About</a> for the pipeline setup guide.
-        </li>
-      </ol>
+      ))}
+    </ol>
+  </Section>
+
+  <!-- For firms & pilots — the one mid-page dark reveal -->
+  <Section
+    id="partners"
+    variant="inverse"
+    kicker={{ num: '03', label: 'For firms & pilots' }}
+    heading="Win the work you’re built for."
+    accentWord="built for."
+    accentColor="sky"
+    inner="wide"
+    lede="Stop chasing leads. AirXSpatial brings qualified, in-scope projects to credentialed engineering firms and certified pilots — so your time goes to the field, not the funnel."
+  >
+    <div class="mt-12 grid gap-px overflow-hidden rounded-md border border-ink-800 bg-ink-800 sm:grid-cols-2">
+      {partnerBenefits.map((b) => (
+        <div class="bg-ink-950 p-8">
+          <h3 class="text-base font-bold tracking-tight text-ink-50">{b.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-300">{b.body}</p>
+        </div>
+      ))}
     </div>
   </Section>
 
   <CtaStrip
-    heading="Ready to ship?"
-    accentWord="ship?"
-    accentColor="cyan"
-    lede="Start from this template and deploy a governed, Ship-maintained site in under an hour."
-    cta={{ label: 'Get the template', href: 'https://github.com/your-org/ship-a-website' }}
+    heading="Build with people who measure twice."
+    accentWord="measure twice."
+    accentColor="sky"
+    lede="Tell us about your site. We’ll route it to the firms and pilots who can deliver it to standard."
+    cta={{ label: 'Get in touch', href: `${base}about` }}
+    ctaSecondary={{ label: 'Learn about AirXSpatial', href: `${base}about` }}
   />
 </Layout>

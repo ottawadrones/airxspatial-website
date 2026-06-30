@@ -10,8 +10,8 @@ const year = new Date().getFullYear();
 
 <footer class="relative isolate overflow-hidden bg-ink-950 text-ink-50" data-section="footer">
   <div class="site-glow" aria-hidden="true">
-    <span class="site-glow__shape site-glow__shape--purple-tr"></span>
-    <span class="site-glow__shape site-glow__shape--cyan-bl"></span>
+    <span class="site-glow__shape site-glow__shape--sky-tr"></span>
+    <span class="site-glow__shape site-glow__shape--sky-bl"></span>
   </div>
 
   <div class="relative z-10 mx-auto max-w-5xl px-6 py-14">
@@ -21,36 +21,36 @@ const year = new Date().getFullYear();
       <div class="flex items-start gap-5">
         <SiteMark size={28} />
         <div>
-          <p class="text-sm font-mono tracking-wide opacity-70">your-site.com</p>
+          <p class="text-sm font-mono tracking-wide opacity-70">airxspatial.com</p>
           <p class="mt-2 text-sm text-ink-300 max-w-xs leading-relaxed">
-            A short description of what your site or product does.
-            Replace this with your own copy.
+            The marketplace for engineering &amp; survey — connecting firms and
+            certified pilots with the surveying, inspection, LiDAR, and
+            photogrammetry work the world’s sites depend on.
           </p>
         </div>
       </div>
 
       <nav class="grid grid-cols-2 gap-10">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-ink-300">Site</p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-ink-300">Platform</p>
           <ul class="mt-3 space-y-2">
-            <li><a href={base}             class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Home</a></li>
-            <li><a href={`${base}about`}   class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">About</a></li>
-            <li><a href={`${base}blog`}    class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Blog</a></li>
-            <li><a href={`${base}contact`} class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Contact</a></li>
+            <li><a href={`${base}#platform`}     class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">What we do</a></li>
+            <li><a href={`${base}#how-it-works`} class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">How it works</a></li>
+            <li><a href={`${base}#partners`}     class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Firms &amp; pilots</a></li>
           </ul>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-ink-300">Legal</p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-ink-300">Company</p>
           <ul class="mt-3 space-y-2">
-            <li><a href={`${base}privacy`} class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Privacy</a></li>
-            <li><a href={`${base}terms`}   class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Terms</a></li>
+            <li><a href={`${base}about`} class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">About</a></li>
+            <li><a href={`${base}about`} class="text-sm text-ink-200 opacity-80 hover:opacity-100 transition-opacity">Get in touch</a></li>
           </ul>
         </div>
       </nav>
     </div>
 
     <p class="mt-10 text-xs text-ink-500">
-      &copy; {year} Your Organization. All rights reserved.
+      &copy; {year} AirXSpatial. All rights reserved.
     </p>
   </div>
 </footer>

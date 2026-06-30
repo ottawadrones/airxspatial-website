@@ -1,9 +1,10 @@
 ---
 /**
- * SiteMark — the brand badge.
+ * SiteMark — the AirXSpatial logotype.
  *
- * Replace the "BRAND" text with your own wordmark or swap this component
- * for an <img> pointing to your logo SVG.
+ * A tight grotesque wordmark with the connecting "X" tinted sky (glass
+ * reflecting sky). Sizes via --site-mark-size. Used on dark chrome (Nav,
+ * Footer, CtaStrip), so the X uses sky-300 for presence on dark.
  */
 interface Props {
   size?: number;
@@ -11,7 +12,7 @@ interface Props {
   class?: string;
 }
 
-const { size = 18, label = 'BRAND', class: className } = Astro.props;
+const { size = 18, label = 'AirXSpatial', class: className } = Astro.props;
 ---
 
 <span
@@ -19,30 +20,31 @@ const { size = 18, label = 'BRAND', class: className } = Astro.props;
   role="img"
   aria-label={label}
   style={`--site-mark-size: ${size}px`}
->BRAND</span>
+>AIR<span class="site-mark__x">X</span>SPATIAL</span>
 
 <style>
   .site-mark {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
     box-sizing: border-box;
-    padding: 0 0.36em;
-    border: 1px solid currentColor;
-    border-radius: 0.18em;
     vertical-align: middle;
     flex: none;
     white-space: nowrap;
 
     font-size: var(--site-mark-size, 18px);
-    font-family: "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
-    font-weight: 900;
+    font-family: var(--font-sans);
+    font-weight: 800;
     font-style: normal;
-    line-height: 1.6;
-    letter-spacing: 0.08em;
-    text-indent: 0.08em;
+    line-height: 1;
+    letter-spacing: 0.10em;
+    text-indent: 0.10em;
     text-transform: uppercase;
     font-feature-settings: "tnum" 1, "ss01" 1;
     font-variant-ligatures: none;
+  }
+  .site-mark__x {
+    color: var(--color-sky-300);
+    font-weight: 900;
+    padding: 0 0.02em;
   }
 </style>

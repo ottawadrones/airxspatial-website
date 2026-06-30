@@ -2,31 +2,30 @@
 /**
  * FeatureCard — content-section card.
  *
- * A single-color top border, Inter heading, muted body. Optional icon glyph.
+ * A single thin brand top-rule, display heading, muted body. Optional icon
+ * glyph. Brand color is restrained to the rule + icon tint (<=10% coverage).
  */
 interface Props {
   icon?: string;
   heading: string;
   body: string;
   href?: string;
-  accent?: 'cyan' | 'purple' | 'magenta' | 'green';
+  accent?: 'sky' | 'land';
 }
 
-const { icon, heading, body, href, accent = 'cyan' } = Astro.props;
+const { icon, heading, body, href, accent = 'sky' } = Astro.props;
 const Tag = href ? 'a' : 'div';
 
 const accentVar =
-  accent === 'cyan'    ? 'var(--color-cyan)'    :
-  accent === 'purple'  ? 'var(--color-purple)'  :
-  accent === 'magenta' ? 'var(--color-magenta)' :
-                         'var(--color-green)';
+  accent === 'land' ? 'var(--color-land-500)' :
+                      'var(--color-sky-500)';
 ---
 
 <Tag
   href={href}
   class:list={[
-    'feature-card group relative block bg-ink-50 p-6 transition-colors duration-200 border-t-2',
-    href && 'hover:bg-white cursor-pointer',
+    'feature-card group relative block bg-white p-7 transition-colors duration-200 border border-ink-200 border-t-2',
+    href && 'hover:border-ink-300 cursor-pointer',
   ]}
   style={`--feature-card-accent: ${accentVar};`}
 >
@@ -49,6 +48,6 @@ const accentVar =
 
 <style>
   .feature-card {
-    border-top-color: var(--feature-card-accent, var(--color-cyan));
+    border-top-color: var(--feature-card-accent, var(--color-sky-500));
   }
 </style>

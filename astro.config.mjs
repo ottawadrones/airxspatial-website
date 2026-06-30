@@ -8,8 +8,8 @@ import sitemap from '@astrojs/sitemap';
 // the apex/www custom domain at the root path. Otherwise fall back to the
 // project-pages URL so local builds and PR previews still work.
 const customDomain = process.env.SITE_CUSTOM_DOMAIN;
-const site = customDomain ? `https://${customDomain}` : 'https://your-org.github.io';
-const base = customDomain ? '/' : '/ship-a-website/';
+const site = customDomain ? `https://${customDomain}` : 'https://ottawadrones.github.io';
+const base = customDomain ? '/' : '/airxspatial-website/';
 
 export default defineConfig({
   site,

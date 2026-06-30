@@ -5,11 +5,12 @@
  * The sticky dark Nav always sits over a dark hero, so the chrome is
  * consistent regardless of which page you're on.
  */
+import HeroField from './HeroField.astro';
 
 interface Props {
   headline: string;
   accentWord?: string;
-  accentColor?: 'multi' | 'cyan' | 'purple' | 'magenta' | 'green';
+  accentColor?: 'multi' | 'sky' | 'land';
   eyebrow?: string;
   subheadline?: string;
   kicker?: string;
@@ -52,11 +53,13 @@ const kickerTail = kickerRest.join(' · ');
   data-variant="inverse"
   data-section="page-hero"
 >
+  {size === 'hero' && <HeroField />}
+
   <div class="site-glow" aria-hidden="true">
-    <span class="site-glow__shape site-glow__shape--cyan-bl"></span>
-    <span class="site-glow__shape site-glow__shape--purple-tr"></span>
+    <span class="site-glow__shape site-glow__shape--sky-tr"></span>
+    <span class="site-glow__shape site-glow__shape--sky-bl"></span>
     {size === 'hero' && (
-      <span class="site-glow__shape site-glow__shape--magenta-tl"></span>
+      <span class="site-glow__shape site-glow__shape--land-br"></span>
     )}
   </div>
 
