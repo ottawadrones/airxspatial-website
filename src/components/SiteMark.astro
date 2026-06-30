@@ -20,7 +20,7 @@ const { size = 18, label = 'AirXSpatial', class: className } = Astro.props;
   role="img"
   aria-label={label}
   style={`--site-mark-size: ${size}px`}
->AIR<span class="site-mark__x">X</span>SPATIAL</span>
+>AIR<span class="site-mark__x">×</span>SPATIAL</span>
 
 <style>
   .site-mark {
@@ -33,7 +33,7 @@ const { size = 18, label = 'AirXSpatial', class: className } = Astro.props;
 
     font-size: var(--site-mark-size, 18px);
     font-family: var(--font-sans);
-    font-weight: 800;
+    font-weight: 700;
     font-style: normal;
     line-height: 1;
     letter-spacing: 0.10em;
@@ -42,9 +42,11 @@ const { size = 18, label = 'AirXSpatial', class: className } = Astro.props;
     font-feature-settings: "tnum" 1, "ss01" 1;
     font-variant-ligatures: none;
   }
+  /* The connective "×": a hairline multiplication sign against the bold wordmark. */
   .site-mark__x {
     color: var(--color-sky-300);
-    font-weight: 900;
-    padding: 0 0.02em;
+    font-weight: 300;
+    font-size: 1.05em;
+    margin: 0 0.14em;
   }
 </style>

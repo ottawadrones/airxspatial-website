@@ -1,5 +1,28 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Photo from '../components/Photo.astro';
+import ArcEdge from '../components/ArcEdge.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const IMG_GLASS  = 'https://images.unsplash.com/photo-1756420271689-de045d0333b1?auto=format&fit=crop&w=2000&q=80';
+const IMG_AERIAL = 'https://images.unsplash.com/photo-1759318965270-0549e993a3b8?auto=format&fit=crop&w=1400&q=80';
+
+const capabilities = [
+  { title: 'Surveying & geomatics', body: 'Boundary, topographic, and as-built work, to the tolerance the project demands.' },
+  { title: 'Inspection & compliance', body: 'Structural, façade, and infrastructure inspections documented to standard.' },
+  { title: 'LiDAR & point clouds', body: 'Aerial and terrestrial, registered into survey-grade point clouds.' },
+  { title: 'Photogrammetry & 3D', body: 'Orthomosaics, meshes, and digital twins of the real site.' },
+  { title: 'Construction progress', body: 'Repeat captures tracked against plan for owners, lenders, and controls.' },
+];
+
+const principles = [
+  { k: 'Credentialed & insured', v: 'Every firm and pilot is vetted before a single mission — capability you can rely on.' },
+  { k: 'Documented to standard', v: 'Deliverables answer to the codes, regulators, and insurers your project answers to.' },
+  { k: 'Measured twice', v: 'The marketplace rewards precision. The people who get it right win the next project.' },
+];
 ---
 
 <PageLayout
@@ -10,52 +33,104 @@ import PageLayout from '../layouts/PageLayout.astro';
   accentColor="sky"
   eyebrow="About AirXSpatial"
   subheadline="We make it effortless for engineering firms and certified pilots to find, bid on, and win the spatial work that matters — and effortless for the world’s builders to get it done to standard."
+  bgImage={IMG_GLASS}
+  bgAlt="A glass tower facade mirroring the dusk sky."
+  showCta={false}
 >
-  <section data-variant="paper">
-    <div class="section__inner section__inner--prose">
-      <div class="prose prose-zinc max-w-none">
-        <h2>Why we exist</h2>
+  <!-- Why we exist -->
+  <Section
+    variant="paper"
+    heading="Why we exist."
+    accentWord="exist."
+    accentColor="sky"
+    inner="wide"
+  >
+    <div class="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div class="space-y-6 text-lg leading-relaxed text-ink-700">
         <p>
           Every ambitious project — a tower, a bridge, a campus, a corridor — rests on
-          measurements that have to be right. Yet the people who can capture that ground truth,
-          the licensed engineering firms and the certified pilots flying LiDAR and photogrammetry
-          missions, spend too much of their time chasing leads instead of doing the work.
+          measurements that have to be right. Yet the people who capture that ground truth,
+          the licensed engineering firms and the certified pilots flying LiDAR and
+          photogrammetry missions, spend too much of their time chasing leads instead of
+          doing the work.
         </p>
         <p>
-          <strong>AirXSpatial</strong> closes that gap. We are the marketplace for engineering and
-          survey — the sales-and-marketing layer that routes qualified, in-scope work to the firms
-          and pilots best equipped to deliver it.
-        </p>
-
-        <h2>What we do</h2>
-        <p>
-          Developers, general contractors, and asset owners publish what a site needs measured —
-          a boundary survey, a façade inspection, a LiDAR capture, a construction-progress mission.
-          AirXSpatial matches that scope to credentialed firms and certified pilots, who bid and
-          deliver survey-grade results documented to the standards the project answers to.
-        </p>
-        <ul>
-          <li><strong>Surveying &amp; geomatics</strong> — boundary, topographic, and as-built work</li>
-          <li><strong>Inspection &amp; compliance</strong> — structural, façade, and infrastructure</li>
-          <li><strong>LiDAR &amp; point clouds</strong> — aerial and terrestrial, registered to survey grade</li>
-          <li><strong>Photogrammetry &amp; 3D</strong> — orthomosaics, meshes, and digital twins</li>
-          <li><strong>Construction progress</strong> — repeat captures tracked against plan</li>
-        </ul>
-
-        <h2>How we work</h2>
-        <p>
-          Trust is the product. Every firm and pilot in the network is credentialed and insured,
-          and every delivery builds a verifiable track record. We hold the marketplace to a simple
-          standard: the people who measure twice should win the work.
-        </p>
-
-        <h2>Where we’re headed</h2>
-        <p>
-          Today, AirXSpatial is focused on building the network and the trust behind it. As demand
-          grows, the marketplace opens into a full bidding platform — but the principle stays the
-          same: ground truth, delivered by the right people, wherever the work is.
+          <strong class="font-semibold text-ink-900">AirXSpatial closes that gap.</strong>
+          We are the marketplace for engineering and survey — the sales-and-marketing layer
+          that routes qualified, in-scope work to the firms and pilots best equipped to
+          deliver it.
         </p>
       </div>
+      <Photo
+        src={IMG_AERIAL}
+        alt="Aerial view of a live construction site, foundations laid out below."
+        ratio="4 / 3"
+        caption="Aerial capture · live construction site"
+      />
     </div>
-  </section>
+  </Section>
+
+  <!-- What we do -->
+  <Section
+    variant="sunken"
+    heading="What we do."
+    inner="wide"
+    lede="Customers publish what a site needs measured; AirXSpatial matches it to credentialed firms and certified pilots, who bid and deliver survey-grade results."
+  >
+    <ul class="mt-12 grid border-t border-ink-200 sm:grid-cols-2 sm:gap-x-12">
+      {capabilities.map((c) => (
+        <li class="border-b border-ink-200 py-6">
+          <div class="flex items-baseline gap-4">
+            <span class="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-sky-500" aria-hidden="true"></span>
+            <div>
+              <h3 class="text-lg font-bold tracking-tight text-ink-900">{c.title}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-ink-600">{c.body}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <!-- How we work -->
+  <Section
+    variant="paper"
+    heading="How we work."
+    accentWord="work."
+    accentColor="land"
+    inner="wide"
+    lede="Trust is the product. We hold the marketplace to one standard: the people who measure twice should win the work."
+  >
+    <dl class="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-3">
+      {principles.map((p) => (
+        <div class="border-t border-ink-200 pt-5">
+          <dt class="text-base font-bold tracking-tight text-ink-900">{p.k}</dt>
+          <dd class="mt-2 text-sm leading-relaxed text-ink-600">{p.v}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+
+  <!-- Where we're headed -->
+  <Section variant="paper" inner="prose">
+    <h2 class="site-headline site-headline--display">
+      Where we’re <span class="site-accent--sky">headed.</span>
+    </h2>
+    <p class="mt-6 text-lg leading-relaxed text-ink-700">
+      Today, AirXSpatial is focused on building the network and the trust behind it. As
+      demand grows, the marketplace opens into a full bidding platform — but the principle
+      stays the same: ground truth, delivered by the right people, wherever the work is.
+    </p>
+  </Section>
+
+  <ArcEdge from="var(--surface-page)" to="var(--color-ink-950)" />
+
+  <CtaStrip
+    heading="Build with people who measure twice."
+    accentWord="measure twice."
+    accentColor="sky"
+    lede="See how a scope becomes survey-grade ground truth — and who delivers it."
+    bgImage={IMG_GLASS}
+    cta={{ label: 'See how it works', href: `${base}#how-it-works` }}
+  />
 </PageLayout>

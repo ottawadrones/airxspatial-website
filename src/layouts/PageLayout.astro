@@ -18,6 +18,8 @@ interface Props {
   eyebrow?: string;
   subheadline?: string;
   kicker?: string;
+  bgImage?: string;
+  bgAlt?: string;
   noIndex?: boolean;
   showCta?: boolean;
 }
@@ -31,6 +33,8 @@ const {
   eyebrow,
   subheadline,
   kicker,
+  bgImage,
+  bgAlt,
   noIndex = false,
   showCta  = true,
 } = Astro.props;
@@ -44,6 +48,8 @@ const {
     eyebrow={eyebrow}
     subheadline={subheadline}
     kicker={kicker}
+    bgImage={bgImage}
+    bgAlt={bgAlt}
   />
 
   <slot />
