@@ -32,13 +32,13 @@
     height: 100%;
     display: block;
   }
-  /* Keep headline contrast over the cloud: darken left/bottom where text sits. */
+  /* Gentle vignette so the cloud reads as a framed survey render. */
   .hero-field__scrim {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, var(--color-ink-950) 0%, oklch(0.16 0.013 250 / 0.45) 38%, transparent 72%),
-      linear-gradient(0deg, var(--color-ink-950) 0%, transparent 34%);
+      radial-gradient(125% 105% at 50% 38%, transparent 42%, var(--color-ink-950) 100%),
+      linear-gradient(0deg, var(--color-ink-950) 2%, transparent 30%);
   }
 </style>
 

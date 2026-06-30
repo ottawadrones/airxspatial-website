@@ -15,6 +15,19 @@
 @plugin "@tailwindcss/typography";
 
 /* -----------------------------------------------------------------------------
+ * 0. Self-hosted brand fonts (no external requests)
+ *    Display: Archivo Expanded — a wide, structural grotesque (architectural
+ *    signage / building nameplate). Body: Archivo — its neutral-width sibling.
+ *    One superfamily, committed width + weight contrast.
+ * --------------------------------------------------------------------------- */
+@font-face { font-family: "Archivo"; font-style: normal; font-weight: 400; font-display: swap; src: url("./fonts/archivo-400.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-style: normal; font-weight: 500; font-display: swap; src: url("./fonts/archivo-500.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-style: normal; font-weight: 600; font-display: swap; src: url("./fonts/archivo-600.woff2") format("woff2"); }
+@font-face { font-family: "Archivo Expanded"; font-style: normal; font-weight: 600; font-display: swap; src: url("./fonts/archivo-expanded-600.woff2") format("woff2"); }
+@font-face { font-family: "Archivo Expanded"; font-style: normal; font-weight: 700; font-display: swap; src: url("./fonts/archivo-expanded-700.woff2") format("woff2"); }
+@font-face { font-family: "Archivo Expanded"; font-style: normal; font-weight: 800; font-display: swap; src: url("./fonts/archivo-expanded-800.woff2") format("woff2"); }
+
+/* -----------------------------------------------------------------------------
  * 1. Theme tokens (Tailwind v4)
  * --------------------------------------------------------------------------- */
 @theme {
@@ -106,8 +119,10 @@
   /* --- 1.5 Typography ---
      System stack until self-hosted fonts are added (see public/AGENTS.md).
      Display headings target a tight grotesque; body a neutral humanist sans. */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Archivo Expanded", "Archivo", ui-sans-serif, system-ui,
+               -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
                "Liberation Mono", "Courier New", monospace;
 
@@ -477,10 +492,10 @@
 
 /* --- 9.7 Display headline -------------------------------------------------- */
 .site-headline {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  letter-spacing: -0.032em;
-  line-height: 1.03;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
   text-wrap: balance;
 }
 .site-headline--display {
@@ -558,19 +573,19 @@ section[data-variant="inverse"] :where(p.site-eyebrow, .site-kicker) {
 
 section[data-variant] :where(h1).site-headline,
 section[data-variant] :where(h2).site-headline {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  letter-spacing: -0.032em;
-  line-height: 1.03;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
   text-wrap: balance;
 }
 
 section :where(h2):not(.site-headline):not(.not-prose h2) {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(1.6rem, 3vw, 2.25rem);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin-top: 0;
 }
 

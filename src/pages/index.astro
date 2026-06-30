@@ -2,55 +2,53 @@
 /**
  * index.astro — AirXSpatial homepage.
  *
- * The marketplace for engineering & survey. Phase goal: credibility. A
- * monumental dark hero, a gallery-light body, one mid-page dark reveal for the
- * supply side, and a dark closing CTA. See PRODUCT.md / DESIGN.md.
+ * Award-winning-architecture register: a photographic dark hero, an asymmetric
+ * editorial body (not a card grid), the deliverable made visible as a LiDAR
+ * point cloud, a photo-backed dark "supply" reveal mid-page, a connected
+ * how-it-works journey, a proof gallery, and one monumental arc into the dark
+ * closing CTA. See PRODUCT.md / DESIGN.md.
  */
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
-import FeatureCard from '../components/FeatureCard.astro';
+import HeroField from '../components/HeroField.astro';
+import ArcEdge from '../components/ArcEdge.astro';
 import CtaStrip from '../components/CtaStrip.astro';
 
 const base = import.meta.env.BASE_URL;
 
+// Verified Unsplash imagery (architecture / glass / aerial site).
+const IMG_GLASS  = 'https://images.unsplash.com/photo-1756420271689-de045d0333b1?auto=format&fit=crop&w=2000&q=80'; // glass facade at dusk — Osmar do Canto
+const IMG_NIGHT  = 'https://images.unsplash.com/photo-1757688348857-25d9d6972b18?auto=format&fit=crop&w=2000&q=80'; // curved glass facade at night — Ü Lõ
+const IMG_AERIAL = 'https://images.unsplash.com/photo-1759318965270-0549e993a3b8?auto=format&fit=crop&w=1400&q=80'; // aerial construction site — Eduard Delputte
+
 const disciplines = ['Surveying', 'Inspection', 'LiDAR', 'Photogrammetry'];
 
+const capabilities = [
+  { title: 'Surveying & geomatics', body: 'Boundary, topographic, and as-built surveys delivered by licensed firms to the tolerance your project demands.' },
+  { title: 'Inspection & compliance', body: 'Structural, façade, and infrastructure inspections documented to the standards regulators and insurers expect.' },
+  { title: 'LiDAR & point clouds', body: 'Aerial and terrestrial LiDAR captured by certified pilots and registered into survey-grade point clouds.' },
+  { title: 'Photogrammetry & 3D', body: 'High-resolution imagery turned into measurable orthomosaics, meshes, and digital twins of the real site.' },
+  { title: 'Construction progress', body: 'Repeat captures that track a build against plan — evidence owners, lenders, and project controls can trust.' },
+];
+
 const steps = [
-  {
-    num: '01',
-    title: 'Publish the scope',
-    body: 'A developer, GC, or asset owner posts the site and the deliverable — boundary survey, façade inspection, a progress capture. Plainly, in your terms.',
-  },
-  {
-    num: '02',
-    title: 'We match the field',
-    body: 'AirXSpatial routes the work to credentialed engineering firms and certified pilots near the site, in the right discipline — ready to bid.',
-  },
-  {
-    num: '03',
-    title: 'Receive the deliverable',
-    body: 'Survey-grade data, documented to standard and delivered on a timeline you can build against. Traceable from field to file.',
-  },
+  { num: '01', title: 'Publish the scope', body: 'A developer, GC, or asset owner posts the site and the deliverable — plainly, in your terms.' },
+  { num: '02', title: 'We match the field', body: 'AirXSpatial routes the work to credentialed firms and certified pilots near the site, in the right discipline.' },
+  { num: '03', title: 'Receive the deliverable', body: 'Survey-grade data, documented to standard and delivered on a timeline you can build against.' },
 ];
 
 const partnerBenefits = [
-  {
-    title: 'Qualified demand, pre-scoped',
-    body: 'Only projects that match your discipline, your equipment, and your coverage area. No tire-kickers.',
-  },
-  {
-    title: 'No sales & marketing overhead',
-    body: 'AirXSpatial is your go-to-market layer. You stay in the field; we bring the work to you.',
-  },
-  {
-    title: 'Credentialing that compounds',
-    body: 'Every delivery builds a verifiable track record — the kind that wins the next, larger project.',
-  },
-  {
-    title: 'Rewarded for precision',
-    body: 'The marketplace favours the firms and pilots who measure twice and deliver to standard.',
-  },
+  { title: 'Qualified demand, pre-scoped', body: 'Only projects that match your discipline, equipment, and coverage area. No tire-kickers.' },
+  { title: 'No sales & marketing overhead', body: 'AirXSpatial is your go-to-market layer. You stay in the field; we bring the work to you.' },
+  { title: 'Credentialing that compounds', body: 'Every delivery builds a verifiable track record — the kind that wins the next, larger project.' },
+  { title: 'Rewarded for precision', body: 'The marketplace favours the firms and pilots who measure twice and deliver to standard.' },
+];
+
+const proofPoints = [
+  { k: 'Credentialed & insured', v: 'Every firm and pilot in the network is vetted before a single mission.' },
+  { k: 'Documented to standard', v: 'Deliverables answer to the codes, regulators, and insurers your project does.' },
+  { k: 'Traceable, field to file', v: 'A clear chain from capture to deliverable — auditable when it matters.' },
 ];
 ---
 
@@ -65,115 +63,228 @@ const partnerBenefits = [
     accentWord="Ground truth"
     accentColor="sky"
     subheadline="AirXSpatial connects developers and asset owners with the engineering firms and certified pilots who deliver precise surveying, inspection, LiDAR, and photogrammetry — wherever the work is."
+    bgImage={IMG_GLASS}
+    bgAlt="A glass tower facade mirroring the dusk sky."
     cta={{ label: 'See how it works', href: `${base}#how-it-works` }}
     ctaSecondary={{ label: 'For firms & pilots', href: `${base}#partners` }}
   />
 
-  <!-- Discipline band — quiet proof, hairline-precise -->
-  <Section variant="paper">
-    <p class="site-eyebrow">Built for work that can’t be wrong</p>
-    <div class="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-ink-200 bg-ink-200 sm:grid-cols-4">
-      {disciplines.map((d) => (
-        <div class="bg-white px-6 py-7">
-          <p class="text-lg font-semibold tracking-tight text-ink-900">{d}</p>
-          <p class="mt-1 font-mono text-xs uppercase tracking-widest text-ink-500">Survey-grade</p>
-        </div>
-      ))}
+  <!-- Disciplines — a thin credibility bar, not a grid of boxes -->
+  <section class="border-b border-ink-200 bg-white" data-section="disciplines">
+    <div class="mx-auto flex max-w-[84rem] flex-col items-center gap-4 px-6 py-7 sm:flex-row sm:justify-center sm:gap-8">
+      <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-500">Survey-grade across</span>
+      <ul class="flex flex-wrap items-center justify-center gap-x-7 gap-y-2">
+        {disciplines.map((d, i) => (
+          <li class="flex items-center gap-7">
+            <span class="text-base font-semibold tracking-tight text-ink-900">{d}</span>
+            {i < disciplines.length - 1 && <span class="h-1 w-1 rounded-full bg-sky-500" aria-hidden="true"></span>}
+          </li>
+        ))}
+      </ul>
     </div>
-  </Section>
+  </section>
 
-  <!-- Platform — what we do -->
+  <!-- Platform — asymmetric editorial, not a 6-card grid -->
   <Section
     id="platform"
-    variant="sunken"
-    kicker={{ num: '01', label: 'What we do' }}
+    variant="paper"
     heading="One marketplace. Every spatial deliverable."
     accentWord="Every spatial deliverable."
     accentColor="sky"
+    inner="wide"
     lede="From a single boundary survey to a campus-scale digital twin, AirXSpatial fields the discipline the work demands — delivered by licensed firms and certified pilots, documented to the standards your project answers to."
   >
-    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <FeatureCard
-        accent="sky"
-        heading="Surveying & geomatics"
-        body="Boundary, topographic, and as-built surveys delivered by licensed firms to the tolerance your project demands."
-      />
-      <FeatureCard
-        accent="land"
-        heading="Inspection & compliance"
-        body="Structural, façade, and infrastructure inspections documented to the standards regulators and insurers expect."
-      />
-      <FeatureCard
-        accent="sky"
-        heading="LiDAR & point clouds"
-        body="Aerial and terrestrial LiDAR captured by certified pilots and registered into survey-grade point clouds."
-      />
-      <FeatureCard
-        accent="land"
-        heading="Photogrammetry & 3D"
-        body="High-resolution imagery turned into measurable orthomosaics, meshes, and digital twins of the real site."
-      />
-      <FeatureCard
-        accent="sky"
-        heading="Construction progress"
-        body="Repeat captures that track a build against plan — evidence owners, lenders, and project controls can trust."
-      />
-      <FeatureCard
-        accent="land"
-        heading="A vetted network"
-        body="Every firm and pilot is credentialed, insured, and matched to the work they do best. Precision is the price of entry."
-      />
+    <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+      <figure class="overflow-hidden rounded-[2rem] border border-ink-200">
+        <img
+          src={IMG_AERIAL}
+          alt="Aerial survey of a construction site threaded between city blocks."
+          class="aspect-[4/5] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="bg-white px-6 py-4 font-mono text-xs uppercase tracking-[0.14em] text-ink-500">
+          Aerial capture · live construction site
+        </figcaption>
+      </figure>
+
+      <ul class="border-t border-ink-200">
+        {capabilities.map((c) => (
+          <li class="group border-b border-ink-200 py-6">
+            <div class="flex items-baseline gap-4">
+              <span class="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-sky-500" aria-hidden="true"></span>
+              <div>
+                <h3 class="text-lg font-bold tracking-tight text-ink-900">{c.title}</h3>
+                <p class="mt-1.5 max-w-xl text-sm leading-relaxed text-ink-600">{c.body}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </Section>
 
-  <!-- How it works -->
+  <!-- Deliverable made visible — the point cloud as the product -->
+  <Section
+    variant="sunken"
+    heading="See the work before you ever trust it."
+    accentWord="before you ever trust it."
+    accentColor="land"
+    inner="wide"
+    lede="Every engagement resolves to something measurable — a registered point cloud, an orthomosaic, a digital twin. The deliverable is the proof."
+  >
+    <div class="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div class="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-ink-300 bg-ink-950">
+        <HeroField />
+        <span class="absolute left-5 top-5 rounded-md bg-ink-950/55 px-3 py-1.5 font-mono text-[11px] tracking-[0.08em] text-ink-200 backdrop-blur" aria-hidden="true">
+          LiDAR · point cloud · 0.4&nbsp;px GSD
+        </span>
+      </div>
+      <div>
+        <p class="text-lg leading-relaxed text-ink-700">
+          A survey-grade capture is the most luxurious thing this industry makes — the real world, measured to millimetres and handed over as something you can build against.
+        </p>
+        <dl class="mt-8 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-3">
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-[0.14em] text-ink-500">Capture</dt>
+            <dd class="mt-1 text-base font-semibold text-ink-900">Aerial &amp; terrestrial</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-[0.14em] text-ink-500">Registered to</dt>
+            <dd class="mt-1 text-base font-semibold text-ink-900">Survey grade</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-[0.14em] text-ink-500">Delivered as</dt>
+            <dd class="mt-1 text-base font-semibold text-ink-900">Point cloud · mesh · twin</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </Section>
+
+  <!-- For firms & pilots — the mid-page dark reveal, photo-backed -->
+  <section id="partners" data-variant="inverse" class="section relative isolate overflow-hidden" data-section="partners">
+    <div class="partners__media" aria-hidden="true">
+      <img src={IMG_NIGHT} alt="" class="partners__img" loading="lazy" decoding="async" />
+      <div class="partners__scrim"></div>
+    </div>
+
+    <div class="site-glow" aria-hidden="true">
+      <span class="site-glow__shape site-glow__shape--sky-tr"></span>
+      <span class="site-glow__shape site-glow__shape--land-br"></span>
+    </div>
+
+    <div class="section__inner section__inner--wide relative z-10">
+      <div class="max-w-2xl">
+        <p class="site-eyebrow site-eyebrow--paper">For engineering firms &amp; certified pilots</p>
+        <h2 class="site-headline site-headline--display mt-5">
+          Win the work you’re <span class="site-accent--sky">built for.</span>
+        </h2>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-200">
+          Stop chasing leads. AirXSpatial brings qualified, in-scope projects to credentialed firms and certified pilots — so your time goes to the field, not the funnel.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-x-12 gap-y-9 sm:grid-cols-2">
+        {partnerBenefits.map((b) => (
+          <div class="border-t border-ink-700 pt-5">
+            <h3 class="text-base font-bold tracking-tight text-ink-50">{b.title}</h3>
+            <p class="mt-2 max-w-md text-sm leading-relaxed text-ink-300">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works — a connected journey, not three boxes -->
   <Section
     id="how-it-works"
     variant="paper"
-    kicker={{ num: '02', label: 'How it works' }}
     heading="Three steps from scope to ground truth."
     accentWord="ground truth."
     accentColor="land"
+    inner="wide"
     lede="AirXSpatial is the layer between the work and the people who can do it — the sales and marketing firm that makes bidding and winning effortless."
   >
-    <ol class="mt-12 grid list-none gap-px overflow-hidden rounded-md border border-ink-200 bg-ink-200 p-0 sm:grid-cols-3">
+    <ol class="relative mt-16 grid gap-12 sm:grid-cols-3 sm:gap-x-10">
+      <span class="pointer-events-none absolute inset-x-0 top-7 hidden h-px bg-ink-200 sm:block" aria-hidden="true"></span>
       {steps.map((step) => (
-        <li class="flex flex-col bg-white p-8">
-          <span class="font-mono text-sm font-semibold tracking-widest text-sky-600">{step.num}</span>
+        <li class="relative">
+          <span class="relative z-10 inline-flex bg-ink-50 pr-5 font-display text-6xl font-extrabold leading-none tracking-tight text-ink-900">{step.num}</span>
+          <span class="mt-6 block h-px w-12 bg-sky-500" aria-hidden="true"></span>
           <h3 class="mt-5 text-lg font-bold tracking-tight text-ink-900">{step.title}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-600">{step.body}</p>
+          <p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-600">{step.body}</p>
         </li>
       ))}
     </ol>
   </Section>
 
-  <!-- For firms & pilots — the one mid-page dark reveal -->
-  <Section
-    id="partners"
-    variant="inverse"
-    kicker={{ num: '03', label: 'For firms & pilots' }}
-    heading="Win the work you’re built for."
-    accentWord="built for."
-    accentColor="sky"
-    inner="wide"
-    lede="Stop chasing leads. AirXSpatial brings qualified, in-scope projects to credentialed engineering firms and certified pilots — so your time goes to the field, not the funnel."
-  >
-    <div class="mt-12 grid gap-px overflow-hidden rounded-md border border-ink-800 bg-ink-800 sm:grid-cols-2">
-      {partnerBenefits.map((b) => (
-        <div class="bg-ink-950 p-8">
-          <h3 class="text-base font-bold tracking-tight text-ink-50">{b.title}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-300">{b.body}</p>
-        </div>
-      ))}
+  <!-- Proof — a credibility artifact + a real captured site -->
+  <Section variant="paper" inner="wide">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <figure class="order-last overflow-hidden rounded-[2rem] border border-ink-200 lg:order-first">
+        <img
+          src={IMG_AERIAL}
+          alt="Drone capture of a construction site, foundations and steel laid out below."
+          class="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <h2 class="site-headline site-headline--display">
+          Credibility is the <span class="site-accent--sky">product.</span>
+        </h2>
+        <p class="mt-6 text-lg leading-relaxed text-ink-700">
+          Before there is a portal, there is trust. AirXSpatial earns it the way the work does — with credentials, standards, and a record you can check.
+        </p>
+        <dl class="mt-8 divide-y divide-ink-200 border-t border-ink-200">
+          {proofPoints.map((p) => (
+            <div class="py-5">
+              <dt class="text-base font-bold tracking-tight text-ink-900">{p.k}</dt>
+              <dd class="mt-1 text-sm leading-relaxed text-ink-600">{p.v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
   </Section>
+
+  <!-- The one monumental curve into the closing dark moment -->
+  <ArcEdge from="var(--surface-page)" to="var(--color-ink-950)" />
 
   <CtaStrip
     heading="Build with people who measure twice."
     accentWord="measure twice."
     accentColor="sky"
     lede="Tell us about your site. We’ll route it to the firms and pilots who can deliver it to standard."
+    bgImage={IMG_GLASS}
     cta={{ label: 'Get in touch', href: `${base}about` }}
-    ctaSecondary={{ label: 'Learn about AirXSpatial', href: `${base}about` }}
   />
 </Layout>
+
+<style>
+  .partners {
+    background-color: var(--color-ink-950);
+  }
+  .partners__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .partners__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.42;
+  }
+  .partners__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--color-ink-950) 12%, oklch(0.16 0.013 250 / 0.72) 50%, oklch(0.16 0.013 250 / 0.40) 100%),
+      linear-gradient(0deg, var(--color-ink-950) 4%, transparent 50%);
+  }
+</style>

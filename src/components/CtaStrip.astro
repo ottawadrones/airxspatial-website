@@ -1,8 +1,8 @@
 ---
 /**
- * CtaStrip — the dark, cinematic closing moment. A glass panel over a dusk
- * field, holding one decisive call to action. The page's final "ooh" before
- * the footer. Drama is rationed: this and the hero are the only dark sections.
+ * CtaStrip — the dark, cinematic closing moment. A frosted-glass panel over a
+ * real architectural backdrop (glass reflecting sky), holding one decisive call
+ * to action. The page's final "ooh." An ArcEdge curve flows the page into it.
  */
 import SiteMark from './SiteMark.astro';
 
@@ -17,6 +17,7 @@ interface Props {
   accentWord?: string;
   accentColor?: 'sky' | 'land';
   lede?: string;
+  bgImage?: string;
   cta?: CtaButton;
   ctaSecondary?: CtaButton;
 }
@@ -28,6 +29,7 @@ const {
   accentWord   = 'measure twice.',
   accentColor  = 'sky',
   lede         = 'Tell us about your site. We will route it to the right firms and pilots.',
+  bgImage,
   cta          = { label: 'Get in touch', href: `${base}about` },
   ctaSecondary,
 } = Astro.props;
@@ -40,6 +42,13 @@ const accentClass = `site-accent--${accentColor}`;
 ---
 
 <section data-variant="cta" class="section cta-strip relative isolate overflow-hidden" data-section="cta">
+  {bgImage && (
+    <div class="cta-strip__media" aria-hidden="true">
+      <img class="cta-strip__img" src={bgImage} alt="" loading="lazy" decoding="async" />
+      <div class="cta-strip__scrim"></div>
+    </div>
+  )}
+
   <div class="site-glow" aria-hidden="true">
     <span class="site-glow__shape site-glow__shape--sky-tr"></span>
     <span class="site-glow__shape site-glow__shape--land-br"></span>
@@ -57,17 +66,17 @@ const accentClass = `site-accent--${accentColor}`;
         </div>
       </div>
 
-      <div class="flex flex-shrink-0 flex-wrap items-center gap-4">
+      <div class="flex flex-shrink-0 flex-wrap items-center gap-3">
         <a
           href={cta.href}
           data-analytics-id={cta.analyticsId ?? 'cta-strip-primary'}
-          class="inline-flex items-center rounded-md bg-ink-50 px-5 py-2.5 text-sm font-semibold text-ink-900 transition-colors hover:bg-white"
+          class="inline-flex items-center justify-center rounded-md bg-ink-50 px-6 py-3 text-sm font-semibold text-ink-900 transition-colors hover:bg-white"
         >{cta.label}</a>
         {ctaSecondary && (
           <a
             href={ctaSecondary.href}
             data-analytics-id={ctaSecondary.analyticsId ?? 'cta-strip-secondary'}
-            class="text-sm font-medium text-ink-300 underline underline-offset-4 transition-colors hover:text-ink-50"
+            class="inline-flex items-center justify-center px-3 py-3 text-sm font-medium text-ink-300 underline underline-offset-4 transition-colors hover:text-ink-50"
           >{ctaSecondary.label}</a>
         )}
       </div>
@@ -79,18 +88,37 @@ const accentClass = `site-accent--${accentColor}`;
   .cta-strip {
     background-color: var(--color-ink-950);
     color: var(--color-ink-50);
-    border-top: 1px solid var(--color-ink-800);
   }
   .cta-strip h2 {
     color: var(--color-ink-50);
   }
+  .cta-strip__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .cta-strip__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    opacity: 0.5;
+  }
+  .cta-strip__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 120% at 50% 0%, transparent 0%, var(--color-ink-950) 78%),
+      linear-gradient(0deg, var(--color-ink-950) 6%, transparent 60%);
+  }
   .cta-strip__panel {
     padding: clamp(1.75rem, 3vw, 2.75rem);
-    border: 1px solid var(--color-ink-800);
-    border-top-color: var(--color-sky-600);
+    border: 1px solid oklch(0.40 0.013 250 / 0.6);
+    border-top-color: var(--color-sky-500);
     border-radius: var(--radius-lg);
     background:
-      linear-gradient(180deg, oklch(0.22 0.018 250 / 0.55), oklch(0.18 0.014 250 / 0.55));
-    backdrop-filter: blur(8px);
+      linear-gradient(180deg, oklch(0.20 0.016 250 / 0.62), oklch(0.16 0.014 250 / 0.66));
+    backdrop-filter: blur(14px);
   }
 </style>

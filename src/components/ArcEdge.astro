@@ -1,0 +1,52 @@
+---
+/**
+ * ArcEdge — a single monumental architectural curve.
+ *
+ * A full-bleed sweeping radiused edge that transitions from one surface color
+ * into another, breaking the orthogonal grid the way a tapering tower breaks a
+ * skyline. Place it between a light section and the dark section that follows.
+ * Decorative only (aria-hidden).
+ */
+interface Props {
+  from?: string;   // color above the curve (the section it rises out of)
+  to?: string;     // color below the curve (the section it flows into)
+  class?: string;
+}
+
+const {
+  from = 'var(--surface-page)',
+  to = 'var(--color-ink-950)',
+  class: className,
+} = Astro.props;
+---
+
+<div
+  class:list={['arc-edge', className]}
+  aria-hidden="true"
+  style={`--arc-from: ${from}; --arc-to: ${to};`}
+>
+  <svg class="arc-edge__svg" viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,140 L0,104 C 520,104 720,0 1440,0 L1440,140 Z" />
+  </svg>
+</div>
+
+<style>
+  .arc-edge {
+    position: relative;
+    width: 100%;
+    height: clamp(52px, 8vw, 132px);
+    background: var(--arc-from);
+    line-height: 0;
+    margin-bottom: -1px; /* hairline-proof seam into the next section */
+  }
+  .arc-edge__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .arc-edge__svg path {
+    fill: var(--arc-to);
+  }
+</style>
